@@ -1,0 +1,133 @@
+<div class="container my-4">
+  <div class="row g-4">
+    <!-- Left Column: Customer & Items -->
+    <div class="col-md-6">
+      <div class="card shadow-sm">
+        <div class="card-body text-center font-monospace">
+          <h4 class="card-title mb-3">Customer: {{ order.name }}</h4>
+
+          <app-item
+            *ngFor="let item of itemList"
+            [itemName]="item.itemName"
+            [itemPrice]="item.itemPrice"
+          ></app-item>
+
+          <div class="mb-3 fs-5">
+            <span class="badge bg-primary mt-4 me-4"
+              >Items: {{ totalItems }}</span
+            >
+            <span class="badge bg-success">Total: ₹{{ totalPrice }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Right Column: Form -->
+    <div class="col-md-6">
+      <div class="card shadow-sm bg-light">
+        <div class="card-body">
+          <h5 class="card-title text-center mb-4">Update Order</h5>
+
+          <form>
+            <!-- Customer Name -->
+            <div class="form-floating mb-3">
+              <input
+                type="text"
+                class="form-control"
+                id="name"
+                #custName
+                placeholder="Customer Name"
+              />
+              <label for="name">Customer Name</label>
+            </div>
+
+            <!-- Total Items & Total Price (side by side) -->
+            <div class="row g-3 mb-3">
+              <!-- Total Items -->
+              <div class="col-md-6">
+                <div class="form-floating">
+                  <input
+                    type="number"
+                    class="form-control"
+                    id="itemcount"
+                    #itemct
+                    placeholder="Total Items"
+                  />
+                  <label for="itemcount">Total Items</label>
+                </div>
+              </div>
+
+              <!-- Total Price -->
+              <div class="col-md-6">
+                <div class="form-floating">
+                  <input
+                    type="number"
+                    class="form-control"
+                    id="totalprice"
+                    #totalprice
+                    placeholder="Total Price"
+                  />
+                  <label for="totalprice">Total Price</label>
+                </div>
+              </div>
+            </div>
+
+            <!-- Save Button -->
+            <div class="d-grid gap-2 mb-4">
+              <button
+                type="button"
+                class="btn btn-outline-success"
+                (click)="
+                  updateData(
+                    custName.value,
+                    itemct.valueAsNumber,
+                    totalprice.valueAsNumber
+                  )
+                "
+              >
+                Save
+              </button>
+            </div>
+
+            <h6 class="text-center mb-3">Add New Item</h6>
+
+            <!-- Item Name -->
+            <div class="form-floating mb-3">
+              <input
+                type="text"
+                class="form-control"
+                id="iName"
+                #itemName
+                placeholder="Item Name"
+              />
+              <label for="iName">Item Name</label>
+            </div>
+
+            <!-- Item Price -->
+            <div class="form-floating mb-3">
+              <input
+                type="number"
+                class="form-control"
+                id="iPrice"
+                #itemPrice
+                placeholder="Item Price"
+              />
+              <label for="iPrice">Item Price</label>
+            </div>
+
+            <!-- Add Item Button -->
+            <div class="d-grid gap-2">
+              <button
+                type="button"
+                class="btn btn-outline-primary"
+                (click)="addItem(itemName.value, itemPrice.valueAsNumber)"
+              >
+                Add Item
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
