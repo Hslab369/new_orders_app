@@ -1,7 +1,7 @@
 <div class="container my-4">
   <div class="row g-4">
     <!-- Left Column: Customer & Items -->
-    <div class="col-md-6">
+    <div class="col-md-8">
       <div class="card shadow-sm">
         <div class="card-body text-center font-monospace">
           <h4 class="card-title mb-3">Customer: {{ order.name }}</h4>
@@ -23,7 +23,7 @@
     </div>
 
     <!-- Right Column: Form -->
-    <div class="col-md-6">
+    <div class="col-md-4">
       <div class="card shadow-sm bg-light">
         <div class="card-body">
           <h5 class="card-title text-center mb-4">Update Order</h5>
@@ -80,7 +80,7 @@
                 (click)="
                   updateData(
                     custName.value,
-                    itemct.valueAsNumber,
+                    itemct.valueAsNumber
                     totalprice.valueAsNumber
                   )
                 "
