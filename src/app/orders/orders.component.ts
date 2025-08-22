@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ItemComponent } from '../item/item.component';
+import { SharedServiceService } from '../shared-service.service';
 
 @Component({
   selector: 'app-orders',
@@ -10,45 +11,22 @@ import { ItemComponent } from '../item/item.component';
   styleUrls: ['./orders.component.css']
 })
 export class OrdersComponent {
-  jsonString = `{
-    "name":"Soham",
-    "itemlist":[
-      {"itemName":"Mobile","itemPrice":25000},
-      {"itemName":"Laptop","itemPrice":75000},
-      {"itemName":"MacBook","itemPrice":150000}
-    ],
-    "totalItems":3,
-    "totalPrice":250000
-  }`;
 
-  order = JSON.parse(this.jsonString);
+  sharedService = new SharedServiceService();
 
-  itemList = this.order.itemlist;
-  totalItems = this.order.totalItems;
-  totalPrice = this.order.totalPrice;
+  // Assign values from the shared service
+  name = this.sharedService.order.name;
+  itemList = this.sharedService.itemList;
+  totalItems = this.sharedService.totalItems;
+  totalPrice = this.sharedService.totalPrice;
+
 
   updateData(custName: string, itemct: number, totalprice: number) {
-    this.order.name = custName;
-
-    // component state is the source of truth
-    this.totalItems = itemct;
-    this.totalPrice = totalprice;
-
-    // mirror to json
-    this.order.totalItems = this.totalItems;
-    this.order.totalPrice = this.totalPrice;
+    this.sharedService.updateData(custName, itemct, totalprice);
   }
 
   addItem(itemName: string, itemPrice: number) {
-    this.itemList.push({ itemName, itemPrice });
-
-    // keep manual increment logic
-    this.totalItems = this.itemList.length;
-    this.totalPrice += itemPrice;
-
-    // mirror to json
-    this.order.totalItems = this.totalItems;
-    this.order.totalPrice = this.totalPrice;
+    this.sharedService.addItem(itemName, itemPrice);
   }
 
 }
